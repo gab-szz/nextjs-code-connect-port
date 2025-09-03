@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import styles from "./aside.module.css";
 import Image from "next/image";
 import logo from "./logo.png";
