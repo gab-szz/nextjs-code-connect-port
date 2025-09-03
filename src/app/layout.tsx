@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Prompt } from "next/font/google";
+import { Prompt } from "next/font/google";
 import "./globals.css";
 import { Aside } from "@/components/Aside";
 
@@ -10,15 +10,15 @@ const prompt = Prompt({
   display: "swap",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Code Connect",
@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className={prompt.className}>
         <div className="app-container">
           <Aside />
-          {children}
+          <div className="main-content">{children}</div>
         </div>
       </body>
     </html>

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "backend": "json-server posts.json -p 3042",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,7 +13,8 @@
     "json-server": "^1.0.0-beta.3",
     "next": "15.4.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
