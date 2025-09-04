@@ -15,6 +15,13 @@ export interface Post {
   author: Author;
 }
 
+export interface PaginatedPost {
+  page: number;
+  prev: number | null;
+  next: number | null;
+  data: Post[];
+}
+
 export interface PostsData {
   posts: Post[];
 }

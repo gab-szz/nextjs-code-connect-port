@@ -1,0 +1,18 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  justify-content: center;
+  align-items: start;
+  padding-bottom: 32px;
+}
+
+.links {
+  text-align: center;
+  grid-column: 1 / -1; /* Links ocupam toda a largura do grid */
+  margin-top: 24px;
+}
+
+.links a {
+  margin: 0 8px;
+}
