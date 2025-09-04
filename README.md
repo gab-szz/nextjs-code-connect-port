@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Code Connect Port
 
-## Getting Started
+> Portfólio Next.js — Projeto desenvolvido por Gabriel para demonstrar habilidades com Next.js, React, TypeScript e boas práticas modernas de front-end.
 
-First, run the development server:
+## Sobre o projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O **Code Connect Port** é uma rede social fictícia para desenvolvedores, onde posts técnicos são exibidos em cards, com navegação paginada, visualização detalhada e layout responsivo. O objetivo é servir como portfólio, mostrando domínio de Next.js, componentes reutilizáveis, integração com API REST e estilização avançada.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Listagem de posts paginada
+- Visualização detalhada de cada post
+- Cards com imagem, título, resumo e autor
+- Avatar do autor
+- Navegação entre páginas
+- Conversão de markdown para HTML no detalhe do post
+- Layout responsivo com CSS Modules
+- Logger customizado com Winston
+- Backend simulado com JSON Server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Tecnologias utilizadas
 
-## Learn More
+- [Next.js 15](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [CSS Modules](https://nextjs.org/docs/app/building-your-application/styling/css-modules)
+- [Winston](https://github.com/winstonjs/winston) para logs
+- [remark](https://github.com/remarkjs/remark) e [remark-html](https://github.com/remarkjs/remark-html) para converter markdown
+- [json-server](https://github.com/typicode/json-server) para simular API
 
-To learn more about Next.js, take a look at the following resources:
+## Como rodar o projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Instale as dependências:
+   ```bash
+   npm install
+   ```
+2. Inicie o backend (API fake):
+   ```bash
+   npm run backend
+   ```
+3. Inicie o servidor Next.js:
+   ```bash
+   npm run dev
+   ```
+4. Acesse [http://localhost:3000](http://localhost:3000) no navegador.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estrutura de pastas
 
-## Deploy on Vercel
+- `src/app` — Páginas e estilos globais
+- `src/components` — Componentes reutilizáveis (CardPost, Avatar, Aside)
+- `posts.json` — Base de dados fake para os posts
+- `src/logger.ts` — Logger customizado
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Demonstração
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Demonstração da listagem de posts](./public/demo-listagem.png)
+![Demonstração do detalhe do post](./public/demo-detalhe.png)
+
+## Autor
+
+Gabriel — [github.com/gab-szz](https://github.com/gab-szz)
+
+---
+
+Este projeto é parte do meu portfólio. Fique à vontade para clonar, estudar e sugerir melhorias!
