@@ -1,20 +1,25 @@
-import { CardPost } from "@/components/CardPost";
-import { PaginatedPost, Post } from "./types";
-import logger from "@/logger";
+import { CardPost } from "../components/CardPost";
+import { PaginatedPost, IPost } from "./types";
+import logger from "../logger";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { AppDataSource } from "../data-source";
+import { Post } from "../entity/Post";
 
 async function getAllPosts(page: number): Promise<PaginatedPost> {
-  const response = await fetch(
-    `http://localhost:3042/posts?_page=${page}&_per_page=6`
-  );
-
-  if (!response.ok) {
+  try {
+    const posts = await AppDataSource.getRepository(Post).find();
+    return {
+      data: posts,
+      prev: null,
+      next: null,
+      page: page,
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
     logger.error("Ops, alguma coisa deu errado.");
+    return { data: [], prev: null, next: null, page: 1 };
   }
-
-  logger.info("Posts obtidos com sucesso!");
-  return response.json() as Promise<PaginatedPost>;
 }
 
 export default async function Home({
@@ -26,7 +31,7 @@ export default async function Home({
   const { data: posts, prev, next } = await getAllPosts(currentPage);
   return (
     <div className={styles.grid}>
-      {posts.map((post: Post) => (
+      {posts.map((post: IPost) => (
         <CardPost key={post.id} post={post} />
       ))}
       <div className={styles.links}>

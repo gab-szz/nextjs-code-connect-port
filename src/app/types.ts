@@ -5,7 +5,7 @@ export interface Author {
   avatar: string;
 }
 
-export interface Post {
+export interface IPost {
   id: number;
   cover: string;
   title: string;
@@ -19,9 +19,9 @@ export interface PaginatedPost {
   page: number;
   prev: number | null;
   next: number | null;
-  data: Post[];
+  data: IPost[];
 }
 
 export interface PostsData {
-  posts: Post[];
+  posts: IPost[];
 }
