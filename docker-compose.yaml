@@ -21,3 +21,4 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       # 'POSTGRES_HOST_AUTH_METHOD' define o método de autenticação.
       # 'trust' significa que não é necessária senha para conectar ao banco de dados. Isso não é recomendado para ambientes de produção por razões de segurança.
+#npm run typeorm -- migration:run -d ./src/data-source.ts
