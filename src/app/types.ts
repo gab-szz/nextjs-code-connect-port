@@ -12,7 +12,7 @@ export interface IPost {
   slug: string;
   body: string;
   markdown: string;
-  author: Author;
+  author: Author | unknown;
 }
 
 export interface PaginatedPost {

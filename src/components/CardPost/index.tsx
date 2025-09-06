@@ -12,12 +12,14 @@ type CardPostProps = {
     slug: string;
     body: string;
     markdown: string;
-    author: {
-      id: number;
-      name: string;
-      username: string;
-      avatar: string;
-    };
+    author:
+      | {
+          id: number;
+          name: string;
+          username: string;
+          avatar: string;
+        }
+      | unknown;
   };
 };
 
@@ -39,7 +41,13 @@ export const CardPost = ({ post }: CardPostProps) => {
           {post.title} {post.body}
         </section>
         <footer className={styles.footer}>
-          <Avatar name={post.author.name} imagesrc={post.author.avatar} />
+          {typeof post.author === "object" &&
+            (post.author as { name: string; avatar: string }).name && (
+              <Avatar
+                name={(post.author as { name: string }).name}
+                imagesrc={(post.author as { avatar: string }).avatar}
+              />
+            )}
         </footer>
       </article>
     </Link>

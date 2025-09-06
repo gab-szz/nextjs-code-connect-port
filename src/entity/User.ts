@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Post } from "./Post";
 
 @Entity("user")
 export class User {
@@ -15,6 +15,6 @@ export class User {
   @Column()
   avatar!: string;
 
-  @OneToMany(() => Post, (post) => post.author)
-  posts!: Post[];
+  @OneToMany("Post", "author")
+  posts!: any[];
 }

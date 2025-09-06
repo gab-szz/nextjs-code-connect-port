@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { User } from "./User";
 
 @Entity("post")
 export class Post {
@@ -37,6 +36,6 @@ export class Post {
   @Column()
   authorId!: number;
 
-  @ManyToOne(() => User, (user) => user.posts)
-  author!: User;
+  @ManyToOne("User", "posts")
+  author!: unknown;
 }
