@@ -6,26 +6,34 @@ import styles from "./page.module.css";
 import { CardPost } from "@/components/CardPost";
 
 async function getPostBySlug(slug: string) {
-  const url = `http://localhost:3042/posts?slug=${slug}`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    logger.error("Ops, alguma coisa correu mal");
-    return {};
+  try {
+    const url = `http://localhost:3042/posts?slug=${slug}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      logger.error("Ops, alguma coisa correu mal");
+      return {};
+    }
+    logger.info("Posts obtidos com sucesso");
+    const data = await response.json();
+    if (data.length == 0) {
+      return {};
+    }
+
+    const post = data[0];
+
+    const processedContent = await remark().use(html).process(post.markdown);
+    const contentHtml = processedContent.toString();
+
+    post.markdown = contentHtml;
+
+    return post;
+  } catch (error: unknown) {
+    logger.error("Ops, alguma coisa deu errado.");
+    if (error instanceof Error) {
+      throw new Error(error.message || "Erro ao obter post");
+    }
+    throw new Error("Erro ao obter post");
   }
-  logger.info("Posts obtidos com sucesso");
-  const data = await response.json();
-  if (data.length == 0) {
-    return {};
-  }
-
-  const post = data[0];
-
-  const processedContent = await remark().use(html).process(post.markdown);
-  const contentHtml = processedContent.toString();
-
-  post.markdown = contentHtml;
-
-  return post;
 }
 
 type PagePostProps = {

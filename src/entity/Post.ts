@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-@Entity("post")
+@Entity({ name: "post", schema: "public" })
 export class Post {
   @PrimaryGeneratedColumn()
   id!: number;
