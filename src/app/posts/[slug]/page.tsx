@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import { CardPost } from "@/components/CardPost";
 import { getDataSource } from "@/data-source";
 import { Post } from "@/entity/Post";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 async function getPostBySlug(slug: string) {
   try {
