@@ -9,20 +9,29 @@ import { getDataSource } from "../data-source"; // Importe a nova função
 import { Post } from "../entity/Post";
 
 async function getAllPosts(page: number): Promise<PaginatedPost> {
+  const LIMIT = 4;
+
   try {
     const dataSource = await getDataSource();
 
     const postRepository = dataSource.getRepository(Post);
 
-    const posts = await postRepository
+    const [posts, total] = await postRepository
       .createQueryBuilder("post")
+      .leftJoinAndSelect("post.author", "author")
       .orderBy("post.createdAt", "DESC")
-      .getMany();
+      .skip((page - 1) * LIMIT)
+      .take(LIMIT)
+      .getManyAndCount();
+
+    const lastPage = Math.ceil(total / LIMIT);
+    const prev = page > 1 ? page - 1 : null;
+    const next = page < lastPage ? page + 1 : null;
 
     return {
       data: posts,
-      prev: null,
-      next: null,
+      prev,
+      next,
       page: page,
     };
   } catch (error) {

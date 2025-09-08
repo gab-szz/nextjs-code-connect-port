@@ -4,22 +4,23 @@ import html from "remark-html";
 
 import styles from "./page.module.css";
 import { CardPost } from "@/components/CardPost";
+import { getDataSource } from "@/data-source";
+import { Post } from "@/entity/Post";
+import { notFound, redirect } from "next/navigation";
 
 async function getPostBySlug(slug: string) {
   try {
-    const url = `http://localhost:3042/posts?slug=${slug}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      logger.error("Ops, alguma coisa correu mal");
-      return {};
-    }
-    logger.info("Posts obtidos com sucesso");
-    const data = await response.json();
-    if (data.length == 0) {
-      return {};
-    }
+    const dataSource = await getDataSource();
+    const postRepository = dataSource.getRepository(Post);
+    const post = await postRepository
+      .createQueryBuilder("post")
+      .leftJoinAndSelect("post.author", "author")
+      .where("post.slug = :slug", { slug })
+      .getOne();
 
-    const post = data[0];
+    if (!post) {
+      throw new Error("Post not found");
+    }
 
     const processedContent = await remark().use(html).process(post.markdown);
     const contentHtml = processedContent.toString();
@@ -27,12 +28,10 @@ async function getPostBySlug(slug: string) {
     post.markdown = contentHtml;
 
     return post;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error: unknown) {
     logger.error("Ops, alguma coisa deu errado.");
-    if (error instanceof Error) {
-      throw new Error(error.message || "Erro ao obter post");
-    }
-    throw new Error("Erro ao obter post");
+    notFound();
   }
 }
 
@@ -41,7 +40,8 @@ type PagePostProps = {
 };
 
 const PagePost = async ({ params }: PagePostProps) => {
-  const post = await getPostBySlug(params.slug);
+  const awaitedParams = await params;
+  const post = await getPostBySlug(awaitedParams.slug);
   return (
     <div>
       <CardPost post={post} highlight />
